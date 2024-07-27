@@ -17,8 +17,9 @@ class _GreeterScreenState extends State<GreeterScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    final containerWidth = isPortrait ? screenWidth * 0.8 : screenWidth * 0.4; // Adjust the percentage as needed
     final appBarWidth = isPortrait ? screenWidth * 0.8 : screenWidth * 0.6; // Adjusted width for better responsiveness
-    final spacing = isPortrait ? screenWidth * 0.08 : screenWidth * 0.1; // Reduced spacing for both orientations
+    final spacing = isPortrait ? screenWidth * 0.1 : screenWidth * 0.2; // Reduced spacing for both orientations
 
     return Scaffold(
       appBar: BuildAppBar(appBarWidth: appBarWidth),
@@ -33,7 +34,7 @@ class _GreeterScreenState extends State<GreeterScreen> {
                 child: Column(
                   children: List.generate(4, (index) {
                     return Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8.0),
+                      margin: const EdgeInsets.symmetric(vertical: 2.0),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -65,7 +66,8 @@ class _GreeterScreenState extends State<GreeterScreen> {
                             ),
                             SizedBox(width: spacing),
                             Expanded(
-                              child: Align(
+                              child: Container(
+                                width: containerWidth * 0.3,
                                 alignment: Alignment.centerRight,
                                 child: Checkbox(
                                   value: false,
@@ -73,6 +75,7 @@ class _GreeterScreenState extends State<GreeterScreen> {
                                 ),
                               ),
                             ),
+                            SizedBox(width: isPortrait? containerWidth * 0.2 : containerWidth * 0.19), //ortrait? co * 0.1 : screenWidth * 0.2), //
                           ],
                         ),
                       ),
