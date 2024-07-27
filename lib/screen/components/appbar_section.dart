@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:greeterapp/constants.dart';
 
 class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const BuildAppBar({
+  BuildAppBar({
     super.key,
     required this.appBarWidth,
   });
 
   final double appBarWidth;
 
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+      final containerWidth = isPortrait ? screenWidth * 0.8 : screenWidth * 0.3; // Adjust the percentage as needed
     return AppBar(
       backgroundColor: HeaderColor,
       toolbarHeight: 60,
@@ -33,7 +37,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Align(
               alignment: Alignment.centerRight,
               child: Container(
-                width: appBarWidth,
+                width: containerWidth,
                 height: 30,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -50,7 +54,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
                     SizedBox(width: 5),
                     Expanded(
                       child: Container(
-                        alignment: Alignment.center,
+                        alignment: Alignment.centerLeft,
                         child: Text(
                           "Search",
                           style: TextStyle(fontSize: 14),
