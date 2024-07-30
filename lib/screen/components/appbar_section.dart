@@ -9,12 +9,15 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final double appBarWidth;
 
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-      final containerWidth = isPortrait ? screenWidth * 0.8 : screenWidth * 0.3; // Adjust the percentage as needed
+    final isTablet = screenWidth > 600;
+    final containerWidth = isTablet 
+    ? ( isPortrait ? screenWidth * 0.25 : screenWidth *0.28 )
+    : (isPortrait ? screenWidth * 0.8 : screenWidth * 0.3); // Adjust the percentage as needed
+
     return AppBar(
       backgroundColor: HeaderColor,
       toolbarHeight: 60,
@@ -32,7 +35,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          SizedBox(width: 100),
+          SizedBox(width: isTablet ? 500 : 100),
           Expanded(
             child: Align(
               alignment: Alignment.centerRight,

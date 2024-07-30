@@ -39,68 +39,63 @@ class _GreeterScreenState extends State<GreeterScreen> {
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: Column(
+                child: Table(
+                  columnWidths: {
+                    0: FlexColumnWidth(0.6),
+                    1: FixedColumnWidth(spacing),
+                    2: FlexColumnWidth(0.3),
+                    3: FixedColumnWidth(
+                        isPortrait ? containerWidth * 0.2 : containerWidth * 0.19),
+                  },
                   children: List.generate(bookingData.length, (index) {
-                    return Card(
-                      margin: const EdgeInsets.symmetric(vertical: 2.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              width: screenWidth *
-                                  0.6, // Adjust the width as needed
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    bookingData[index]['nama'],
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black,
-                                    ),
-                                    softWrap:
-                                        true, // Allow text to wrap to the next line
-                                  ),
-                                  Text(
-                                    bookingData[index]['kamar'],
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-                                ],
+                    return TableRow(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                bookingData[index]['nama'],
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                softWrap: true, // Allow text to wrap to the next line
                               ),
-                            ),
-                            SizedBox(width: spacing),
-                            Expanded(
-                              child: Container(
-                                width: containerWidth * 0.3,
-                                alignment: Alignment.centerRight,
-                                child: Checkbox(
-                                  value:
-                                      bookingData[index]['status'] == 'checked',
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      bookingData[index]['status'] =
-                                          value! ? 'checked' : 'unchecked';
-                                      print(
-                                          'Guest: ${bookingData[index]['nama']}, Room: ${bookingData[index]['kamar']}, Status: ${bookingData[index]['status']}');
-                                    });
-                                  },
+                              Text(
+                                bookingData[index]['kamar'],
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.blue,
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                                width: isPortrait
-                                    ? containerWidth * 0.2
-                                    : containerWidth *
-                                        0.19), //ortrait? co * 0.1 : screenWidth * 0.2), //
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
+                        SizedBox(width: spacing),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Checkbox(
+                              value: bookingData[index]['status'] == 'checked',
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  bookingData[index]['status'] =
+                                      value! ? 'checked' : 'unchecked';
+                                  print(
+                                      'Guest: ${bookingData[index]['nama']}, Room: ${bookingData[index]['kamar']}, Status: ${bookingData[index]['status']}');
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            width: isPortrait
+                                ? containerWidth * 0.2
+                                : containerWidth * 0.19),
+                      ],
                     );
                   }),
                 ),
